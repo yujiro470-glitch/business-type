@@ -26,18 +26,17 @@ all_questions = [
 ]
 
 app = Flask(__name__)
-# 秘密鍵を環境変数から読み込むように変更
 app.secret_key = os.environ.get('SECRET_KEY', 'a-default-secret-key-for-local-use')
 
 @app.route('/')
 def index():
-    # 診断開始時にスコアをリセットする
-    session['scores'] = {'A': 0, 'R': 0, 'C': 0, 'D': 0, 'H': 0, 'L': 0, 'M': 0, 'X': 0}
+    # トップページ(index.html)を表示する
     return render_template('index.html')
 
 @app.route('/quiz')
 def quiz():
-    # 全質問をquiz.htmlに渡す
+    # 診断開始時にスコアをリセットし、全質問をquiz.htmlに渡す
+    session['scores'] = {'A': 0, 'R': 0, 'C': 0, 'D': 0, 'H': 0, 'L': 0, 'M': 0, 'X': 0}
     return render_template('quiz.html', questions=all_questions)
 
 @app.route('/result', methods=['POST'])
