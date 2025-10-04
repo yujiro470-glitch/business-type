@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const answeredQuestions = new Set();
 
     allRadios.forEach(radio => {
-        radio.addEventListener('change', () => {
+        radio.addEventListener('click', () => {
             const currentBlock = radio.closest('.question-block');
             
             // 回答済みセットに質問IDを追加

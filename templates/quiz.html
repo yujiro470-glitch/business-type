@@ -15,7 +15,7 @@
                 <div class="radio-buttons">
                     {% for i in range(7) %}
                         <label class="radio-label" style="--i: {{ i }};">
-                            <input type="radio" name="answer-{{ question.id }}" value="{{ i + 1 }}" id="answer-{{ question.id }}-{{ i }}" {% if i == 3 %}checked{% endif %} required>
+                            <input type="radio" name="answer-{{ question.id }}" value="{{ i + 1 }}" id="answer-{{ question.id }}-{{ i }}" required>
                             <span for="answer-{{ question.id }}-{{ i }}"></span>
                         </label>
                     {% endfor %}
