@@ -1,0 +1,238 @@
+/* ===== Google Fontsからフォントを読み込む ===== */
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&family=Oswald:wght@500&display=swap');
+
+/* ===== カラーパレットとフォントを変数として定義 ===== */
+:root {
+    --main-color: #4A90E2;      /* メインカラー (明るい青) */
+    --accent-color: #50E3C2;    /* アクセントカラー (ティールグリーン) */
+    --bg-color: #121212;        /* 背景色 (ほぼ黒) */
+    --surface-color: #1E1E1E; /* カードなどの背景色 (少し明るい黒) */
+    --text-color: #EAEAEA;      /* 文字色 (オフホワイト) */
+    --subtle-text-color: #999; /* やや薄い文字色 */
+
+    --font-heading: 'Oswald', sans-serif; /* 見出し用フォント */
+    --font-body: 'M PLUS 1p', sans-serif;   /* 本文用フォント */
+}
+
+/* ===== 全体の基本設定 ===== */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ===== コンテナの基本スタイル ===== */
+.container {
+    background-color: var(--surface-color);
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 800px; /* 横幅を少し広げる (700px -> 800px) */
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ===== 見出しのスタイル ===== */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    color: var(--main-color);
+    margin-top: 0;
+}
+h1 { font-size: 2.5em; }
+h2 { font-size: 2em; }
+h3 { font-size: 1.5em; color: var(--text-color); }
+
+/* ===== ボタンのスタイル ===== */
+button {
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-family: var(--font-body);
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease; /* 'all' に変更 */
+}
+
+button:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.05); /* ボタンを少し大きくする */
+}
+
+/* ===== 質問ページのスタイル ===== */
+.choice-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 中央揃えに変更 */
+    gap: 20px; /* 各要素間の隙間を設定 */
+    margin: 30px 0;
+}
+
+.choice-text {
+    flex: 1; /* 固定幅をやめ、利用可能なスペースを均等に分け合う */
+    font-size: 1.1em;
+    line-height: 1.6; /* 行間を少し広げて読みやすくする */
+    word-break: auto-phrase; /* 最新技術: AIが日本語の自然な区切りで改行する (Chrome系ブラウザ) */
+}
+.radio-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+/* ===== スマホ最適化 (Responsive Design) ===== */
+@media (max-width: 600px) {
+    .choice-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .choice-text {
+        width: 100%;
+    }
+}
+/* ===== カスタムラジオボタンのスタイル（強化版） ===== */
+.radio-label {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radio-label input[type="radio"] {
+    opacity: 0; /* 元のラジオボタンを透明にする */
+    position: absolute;
+}
+
+.radio-label span {
+    display: block;
+    border-radius: 50%;
+    transition: all 0.2s ease-out;
+    background-color: var(--surface-color);
+    border: 2px solid var(--subtle-text-color);
+    
+    /* ▼▼▼ この3行が「ボタンの大きさを変える」魔法です ▼▼▼ */
+    --size: calc(25px + (abs(var(--i) - 3) * 5px));
+    width: var(--size);
+    height: var(--size);
+}
+
+/* マウスが乗った時のスタイル */
+.radio-label:hover span {
+    border-color: var(--accent-color);
+    transform: scale(1.1); /* どのボタンでも少し大きくする */
+}
+
+/* 選択された時のスタイル */
+.radio-label input[type="radio"]:checked + span {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    box-shadow: 0 0 10px var(--main-color); /* 光っているような効果 */
+    transform: scale(1.2); /* 選択したボタンは一番大きくする */
+}
+
+/* ===== プログレスバーのスタイル ===== */
+.progress-bar {
+    width: 100%;
+    background-color: var(--surface-color);
+    height: 10px;
+    position: fixed; /* 画面上部に固定 */
+    top: 0;
+    left: 0;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    width: 0%; /* 初期値は0% */
+    background-color: var(--accent-color);
+    transition: width 0.5s ease-out; /* 幅が滑らかに変わるアニメーション */
+}
+
+/* ===== ページ遷移アニメーション ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ===== ヘッダーとフッターのスタイル ===== */
+header, footer {
+    width: 100%;
+    background-color: var(--surface-color);
+    padding: 15px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-size: 0.8em;
+    color: var(--subtle-text-color);
+}
+
+.header-container, .footer-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* メインコンテンツがヘッダーやフッターに隠れないように余白を確保 */
+body {
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
+/* ===== シングルページUIのスタイル ===== */
+html {
+    scroll-behavior: smooth; /* スクロールを滑らかにする */
+}
+
+.question-block {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    opacity: 0.4;
+    transform: scale(0.98);
+    transition: all 0.5s ease-in-out;
+}
+
+.question-block.active {
+    opacity: 1;
+    transform: scale(1);
+    border-color: var(--main-color);
+}
+
+.submit-button-wrapper {
+    margin-top: 40px;
+}
+/* 無効状態のボタンのスタイル */
+button:disabled {
+    background-color: var(--subtle-text-color);
+    cursor: not-allowed;
+    opacity: 0.5;
+}/* ===== ヘッダーのリンクスタイル ===== */
+header a {
+    color: inherit; /* 親要素の色（--main-color）を継承する */
+    text-decoration: none; /* 下線を消す */
+}

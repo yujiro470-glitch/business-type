@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Business 16type</h1>
+    <p>あなたの仕事における強みやコミュニケーションスタイルを明らかにします。</p>
+    <form action="{{ url_for('quiz') }}" method="get">
+        <button type="submit">診断をはじめる</button>
+    </form>
+</div>
+{% endblock %}

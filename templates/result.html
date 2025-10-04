@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>診断結果</h1>
+    <p>あなたのタイプは...</p>
+    
+    <h2>{{ final_type }}</h2>
+    
+    <h3>{{ details.name }}</h3>
+    <h4>概要</h4>
+    <p>{{ details.summary }}</p>
+    <h4>あなたの強み</h4>
+    <p>{{ details.strength }}</p>
+    <h4>課題となりがちな点</h4>
+    <p>{{ details.weakness }}</p>
+</div>
+{% endblock %}
