@@ -10,8 +10,6 @@
             <h3>{{ question.header }}</h3>
     
             <div class="choice-wrapper">
-                <div class="choice-text" style="text-align: right;">{{ question.choice_a }}</div>
-                
                 <div class="radio-buttons">
                     {% for i in range(7) %}
                         <label class="radio-label" style="--i: {{ i }};">
@@ -21,9 +19,12 @@
                     {% endfor %}
                 </div>
 
-                <div class="choice-text" style="text-align: left;">{{ question.choice_b }}</div>
+                <div class="choice-labels">
+                    <div class="choice-text left">{{ question.choice_a }}</div>
+                    <div class="choice-text right">{{ question.choice_b }}</div>
+                </div>
             </div>
-            </div>
+        </div>
         {% endfor %}
 
         <div class="submit-button-wrapper">
