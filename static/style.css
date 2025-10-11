@@ -96,6 +96,7 @@ button:hover {
     }
     .choice-text {
         width: 100%;
+        text-align: center !important; /* 文字を中央揃えにする */
     }
 }
 /* ===== カスタムラジオボタンのスタイル（強化版） ===== */
